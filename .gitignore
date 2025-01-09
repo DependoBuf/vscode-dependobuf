@@ -1,0 +1,7 @@
+node_modules
+*.vsix
+
+client/out
+client/tsconfig.tsbuildinfo
+
+server/target

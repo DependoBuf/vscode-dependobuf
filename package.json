@@ -1,0 +1,51 @@
+{
+    "name": "dependobuf",
+    "displayName": "DependoBuf",
+    "description": "DBuf language support",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.96.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "main": "./client/out/extension",
+    "contributes": {
+        "languages": [
+            {
+                "id": "dbuf",
+                "aliases": [
+                    "DBuf",
+                    "dbuf"
+                ],
+                "extensions": [
+                    ".dbuf"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "dbuf",
+                "scopeName": "source.dbuf",
+                "path": "./syntaxes/dbuf.tmLanguage.json"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -b && cd server && cargo build && cd ..",
+        "watch": "tsc -b -w",
+        "lint": "eslint ./client/src  --ext .ts,.tsx",
+        "postinstall": "cd client && npm install && cd ../server && cargo build && cd .. "
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.10",
+        "@types/node": "^22.10.3",
+        "@typescript-eslint/eslint-plugin": "^8.19.0",
+        "@typescript-eslint/parser": "^8.19.0",
+        "eslint": "^9.17.0",
+        "mocha": "^11.0.1",
+        "typescript": "^5.7.2"
+    }
+}
