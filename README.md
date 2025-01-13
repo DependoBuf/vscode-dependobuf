@@ -9,7 +9,7 @@ This is vscode extension for supporting dbuf language.
 
 ## Requirements
 
-TBA
+* Installed DBuf Language Server as `dbuf-lsp`
 
 ## How to build
 
