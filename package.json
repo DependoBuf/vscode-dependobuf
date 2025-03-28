@@ -34,7 +34,7 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "tsc -b && cd server && cargo build && cd ..",
+        "compile": "tsc -b",
         "watch": "tsc -b -w",
         "lint": "eslint ./client/src  --ext .ts,.tsx",
         "postinstall": "cd client && npm install && cd .. "
