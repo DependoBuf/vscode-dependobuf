@@ -14,6 +14,7 @@ This is vscode extension for supporting dbuf language.
 ## How to build
 
 Use `npm install`, then press `F5`.
+Sometimes command `npm run watch` might help.
 
 ## How to install
 
