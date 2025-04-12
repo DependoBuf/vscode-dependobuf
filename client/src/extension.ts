@@ -12,23 +12,17 @@ let client: LanguageClient;
 export function activate(context: ExtensionContext) {
     vscode.window.showInformationMessage(`Starting LSP server`)
 
-    const log = vscode.window.createOutputChannel("lsp-logs")
-    log.show() // delete in future
-    log.appendLine("log window created")
-
     const server = spawn("dbuf-lsp")
 
     server.on('error', (err) => {
-        log.appendLine(`server creation error:\n  ${err}`)
+        console.log(`server creation error:\n  ${err}`)
     })
     server.stderr.on("data", (data) => {
-        log.append(`${data}`)
+        console.log(`${data}`)
     })
     server.on('close', (code) => {
-        log.appendLine(`server closed with code: ${code}`)
+        console.log(`server closed with code: ${code}`)
     })
-    log.appendLine("server created")
-    log.appendLine("--------------")
 
     const serverOptions: ServerOptions = () => {
         return Promise.resolve(server);
@@ -47,6 +41,8 @@ export function activate(context: ExtensionContext) {
         serverOptions,
         clientOptions
     );
+
+    client
 
     client.start();
 }
