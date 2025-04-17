@@ -3,271 +3,38 @@
     "name": "DBuf",
     "patterns": [
         {
-            "include": "#message"
+            "include": "#storage"
         },
         {
-            "include": "#enum"
+            "include": "#type"
+        },
+        {
+            "include": "#numericConst"
+        },
+        {
+            "include": "#boolConst"
+        },
+        {
+            "include": "#stringConst"
+        },
+        {
+            "include": "#variableConst"
+        },
+        {
+            "include": "#emptyPattern"
+        },
+        {
+            "include": "#arrow"
         }
     ],
     "repository": {
-        "message": {
-            "name": "meta.message.block.dbuf",
-            "begin": "message.*{",
-            "end": "}",
-            "beginCaptures": {
-                "0": {
-                    "patterns": [
-                        {
-                            "include": "#messageHead"
-                        }
-                    ]
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#body"
-                }
-            ]
+        "storage": {
+            "name": "storage.type.dbuf",
+            "match": "message|enum"
         },
-        "messageHead": {
-            "name": "meta.message.head.dbuf",
-            "begin": "(message)\\s+([A-Z]\\w*)",
-            "end": "{",
-            "beginCaptures": {
-                "1": {
-                    "name": "storage.type.message.dbuf"
-                },
-                "2": {
-                    "name": "entity.name.type.dbuf"
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#dependencyDeclaration"
-                }
-            ]
-        },
-        "body": {
-            "name": "meta.body.dbuf",
-            "begin": "\\b([a-z]\\w*)\\s+([A-Z]\\w*)",
-            "end": ";",
-            "beginCaptures": {
-                "1": {
-                    "name": "variable.other.dbuf"
-                },
-                "2": {
-                    "name": "entity.name.type.dbuf"
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#dependencyFillValue"
-                }
-            ]
-        },
-        "enum": {
-            "name": "meta.enum.block.dbuf",
-            "begin": "enum.*{",
-            "end": "}",
-            "beginCaptures": {
-                "0": {
-                    "patterns": [
-                        {
-                            "include": "#enumHead"
-                        }
-                    ]
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#patternMatch"
-                },
-                {
-                    "include": "#constructorWithFields"
-                },
-                {
-                    "include": "#constructorSimple"
-                }
-            ]
-        },
-        "enumHead": {
-            "name": "meta.enum.head.dbuf",
-            "begin": "(enum)\\s+([A-Z]\\w*)",
-            "end": "{",
-            "beginCaptures": {
-                "1": {
-                    "name": "storage.type.enum.dbuf"
-                },
-                "2": {
-                    "name": "entity.name.type.dbuf"
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#dependencyDeclaration"
-                }
-            ]
-        },
-        "constructorSimple": {
-            "name": "meta.constructor.block.dbuf",
-            "match": "[A-Z]\\w*",
-            "captures": {
-                "0": {
-                    "name": "entity.name.type.dbuf"
-                }
-            }
-        },
-        "constructorWithFields": {
-            "name": "meta.constructor.block.dbuf",
-            "begin": "([A-Z]\\w*)\\s*{",
-            "end": "}",
-            "beginCaptures": {
-                "1": {
-                    "name": "entity.name.type.dbuf"
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#body"
-                }
-            ]
-        },
-        "patternMatch": {
-            "name": "meta.pattern.match.dbuf",
-            "begin": "(.*)\\s+=>\\s+{",
-            "end": "}",
-            "beginCaptures": {
-                "0": {
-                    "patterns": [
-                        {
-                            "include": "#patternValue"
-                        }
-                    ]
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#constructorWithFields"
-                },
-                {
-                    "include": "#constructorSimple"
-                }
-            ]
-        },
-        "patternValue": {
-            "name": "meta.pattern.value.dbuf",
-            "match": "(.*)\\s*(=>)",
-            "captures": {
-                "1": {
-                    "patterns": [
-                        {
-                            "name": "constant.language.dbuf",
-                            "match": "^\\s*\\*"
-                        },
-                        {
-                            "match": ",\\s*(\\*)",
-                            "captures": {
-                                "1": {
-                                    "name": "constant.language.dbuf"
-                                }
-                            }
-                        },
-                        {
-                            "match": ",\\s+(.*?)?(?=,|=>|$)",
-                            "captures": {
-                                "1": {
-                                    "patterns": [
-                                        {
-                                            "include": "#innerValue"
-                                        }
-                                    ]
-                                }
-                            }
-                        },
-                        {
-                            "include": "#innerValue"
-                        }
-                    ]
-                },
-                "2": {
-                    "patterns": [
-                        {
-                            "include": "#arrow"
-                        }
-                    ]
-                }
-            }
-        },
-        "dependencyDeclaration": {
-            "name": "meta.dependency.declaration.dbuf",
-            "match": "\\(([a-z]\\w*)\\s+([A-Z]\\w*)(.*?)\\)(?=\\s*\\([a-z]\\w*\\s+[A-Z]\\w*|\\s*{)",
-            "captures": {
-                "1": {
-                    "name": "variable.parameter.dbuf"
-                },
-                "2": {
-                    "name": "entity.name.type.dbuf"
-                },
-                "3": {
-                    "patterns": [
-                        {
-                            "include": "#dependencyFillValue"
-                        }
-                    ]
-                }
-            }
-        },
-        "dependencyFillValue": {
-            "name": "meta.dependency.fill.dbuf",
-            "match": "(.*?)(?=;|$)",
-            "captures": {
-                "1": {
-                    "patterns": [
-                        {
-                            "include": "#numericConst"
-                        },
-                        {
-                            "include": "#boolConst"
-                        },
-                        {
-                            "include": "#stringConst"
-                        },
-                        {
-                            "include": "#variableConst"
-                        },
-                        {
-                            "include": "#constructedConst"
-                        }
-                    ]
-                }
-            }
-        },
-        "innerValue": {
-            "name": "meta.inner.value.dbuf",
-            "begin": "",
-            "end": "(?=,|}|$)",
-            "endCaptures": {
-                "0": {
-                    "name": "endofinnerval"
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#numericConst"
-                },
-                {
-                    "include": "#boolConst"
-                },
-                {
-                    "include": "#stringConst"
-                },
-                {
-                    "include": "#variableConst"
-                },
-                {
-                    "include": "#constructedConst"
-                }
-            ]
+        "type": {
+            "name": "entity.name.type.dbuf",
+            "match": "\\b[A-Z]\\w*"
         },
         "numericConst": {
             "name": "constant.numeric.dbuf",
@@ -292,35 +59,9 @@
             "name": "variable.other.dbuf",
             "match": "\\b([a-z]\\w*)((\\.)([a-z]\\w*))*"
         },
-        "constructedConst": {
-            "name": "meta.constructed.dbuf",
-            "begin": "([A-Z]\\w*)\\s*\\{",
-            "end": "}",
-            "beginCaptures": {
-                "1": {
-                    "name": "entity.name.type.dbuf"
-                }
-            },
-            "patterns": [
-                {
-                    "begin": "\\b([a-z]\\w*)\\s*:",
-                    "end": ",|(?=})",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "variable.other.dbuf"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#innerValue"
-                        }
-                    ]
-                }
-            ]
-        },
         "emptyPattern": {
             "name": "constant.language.dbuf",
-            "match": "\\*"
+            "match": "\\*(?=\\s*,|\\s*=>)"
         },
         "arrow": {
             "name": "constant.language.dbuf",

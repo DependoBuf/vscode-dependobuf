@@ -28,7 +28,7 @@
             {
                 "language": "dbuf",
                 "scopeName": "source.dbuf",
-                "path": "./syntaxes/dbuf-simple.tmLanguage.json"
+                "path": "./syntaxes/dbuf.tmLanguage.json"
             }
         ]
     },
