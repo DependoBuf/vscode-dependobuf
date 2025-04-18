@@ -61,7 +61,7 @@
         },
         "emptyPattern": {
             "name": "constant.language.dbuf",
-            "match": "\\*(?=\\s*,|\\s*=>)"
+            "match": "\\*(?=\\s*,|\\s*=>|\\s*})"
         },
         "arrow": {
             "name": "constant.language.dbuf",
