@@ -3,5 +3,3 @@ node_modules
 
 client/out
 client/tsconfig.tsbuildinfo
-
-server/target

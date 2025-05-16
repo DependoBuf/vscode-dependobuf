@@ -1,69 +1,55 @@
 import * as vscode from "vscode";
 import { workspace, ExtensionContext } from 'vscode';
-import * as net from 'net';
 import {
-	LanguageClient,
-	LanguageClientOptions,
-	ServerOptions,
-	StreamInfo
+    LanguageClient,
+    LanguageClientOptions,
+    ServerOptions
 } from 'vscode-languageclient/node';
-import path = require('path');
-import { spawn, SpawnOptions, spawnSync } from 'child_process';
-import { log } from 'console';
+import { spawn } from 'child_process';
 
 let client: LanguageClient;
 
-
-
 export function activate(context: ExtensionContext) {
-	vscode.window.showInformationMessage(`Starting LSP server`)
+    vscode.window.showInformationMessage(`Starting LSP server`)
 
-	const log = vscode.window.createOutputChannel("lsp-logs")
-	log.show() // delete in future
-	log.appendLine("log window created")
-	
-	const server_path = context.asAbsolutePath(path.join('server'));
-	const options: SpawnOptions = {
-		cwd: server_path
-	};
-	const server = spawn("cargo", ["run"], options)
+    const server = spawn("dbuf-lsp")
 
-	server.on('error', (err) => {
-		log.appendLine(`server creation error: ${err}`)
-	})
-	server.stderr.on("data", (data) => {
-		log.append(`${data}`)
-	})
-	server.on('close', (code) => {
-		log.appendLine(`server closed with code: ${code}`)
-	})
-	log.appendLine("server created")
-	log.appendLine("--------------")
+    server.on('error', (err) => {
+        console.log(`server creation error:\n  ${err}`)
+    })
+    server.stderr.on("data", (data) => {
+        console.log(`${data}`)
+    })
+    server.on('close', (code) => {
+        console.log(`server closed with code: ${code}`)
+    })
 
-	const serverOptions: ServerOptions = () => {
-		return Promise.resolve(server);
+    const serverOptions: ServerOptions = () => {
+        return Promise.resolve(server);
     };
 
-	const clientOptions: LanguageClientOptions = {
-		documentSelector: [{ scheme: 'file', language: 'dbuf' }],
-		synchronize: {
-			fileEvents: workspace.createFileSystemWatcher('**/*.dbuf')
-		}
-	};
+    const clientOptions: LanguageClientOptions = {
+        documentSelector: [{ scheme: 'file', language: 'dbuf' }],
+        synchronize: {
+            fileEvents: workspace.createFileSystemWatcher('**/*.dbuf')
+        }
+    };
 
-	client = new LanguageClient(
-		'dbufServer',
-		'DBuf Language Server',
-		serverOptions,
-		clientOptions
-	);
+    client = new LanguageClient(
+        'dbufServer',
+        'DBuf Language Server',
+        serverOptions,
+        clientOptions
+    );
 
-	client.start();
+    client
+
+    client.start();
 }
 
 export function deactivate(): Thenable<void> | undefined {
-	if (!client) {
-		return undefined;
-	}
-	return client.stop();
+    if (!client) {
+        return undefined;
+    }
+    return client.stop();
 }
