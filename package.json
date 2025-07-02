@@ -11,6 +11,13 @@
     ],
     "main": "./client/out/extension",
     "contributes": {
+        "commands": [
+            {
+                "command": "dependobuf.installLSP",
+                "title": "Install DependoBuf Language Server",
+                "category": "DBuf"
+            }
+        ],
         "languages": [
             {
                 "id": "dbuf",
