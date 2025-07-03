@@ -22,4 +22,4 @@ Use `npm install`, then press `F5`.
 
 ## How to install
 
-Use `Intall from VSIX` to install extension from package or use [marketplace](TBA).
+Use `Intall from VSIX` to install extension from package or use [marketplace](https://marketplace.visualstudio.com/items?itemName=DependoBuf.dependobuf).
