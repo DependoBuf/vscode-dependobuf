@@ -4,4 +4,5 @@
 !LICENSE
 !README.md
 !dist/extension.js
+!package-lock.json
 !package.json
