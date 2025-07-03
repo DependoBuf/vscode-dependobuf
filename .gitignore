@@ -5,6 +5,7 @@ node_modules
 client/out
 client/tsconfig.tsbuildinfo
 
-# lsp build folders
-server-build
+# dbuf-lsp install
+.crates.toml
+.crates2.json
 bin

@@ -12,7 +12,7 @@ let client: LanguageClient;
 
 export async function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('dependobuf.installLSP', async () => {
-        await utils.buildBinary(context);
+        await utils.installBinary(context);
         vscode.window.showInformationMessage("DBuf: LSP installed");
     });
 
