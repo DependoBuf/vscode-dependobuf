@@ -1,5 +1,11 @@
 node_modules
 *.vsix
 
+# client build
 client/out
 client/tsconfig.tsbuildinfo
+
+# dbuf-lsp install
+.crates.toml
+.crates2.json
+bin

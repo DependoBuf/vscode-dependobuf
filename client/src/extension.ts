@@ -1,5 +1,4 @@
 import * as vscode from "vscode";
-import { workspace, ExtensionContext } from 'vscode';
 import {
     LanguageClient,
     LanguageClientOptions,
@@ -7,13 +6,22 @@ import {
 } from 'vscode-languageclient/node';
 import { spawn } from 'child_process';
 
+import * as utils from "./utils";
+
 let client: LanguageClient;
 
-export function activate(context: ExtensionContext) {
-    vscode.window.showInformationMessage(`Starting LSP server`)
+export async function activate(context: vscode.ExtensionContext) {
+    vscode.commands.registerCommand('dependobuf.installLSP', async () => {
+        await utils.installBinary(context);
+        vscode.window.showInformationMessage("DBuf: LSP installed");
+    });
 
-    const server = spawn("dbuf-lsp")
+    const success = await utils.setupLanguageServer(context);
+    if (!success) {
+        return;
+    }
 
+    const server = spawn(utils.getBinaryPath(context));
     server.on('error', (err) => {
         console.log(`server creation error:\n  ${err}`)
     })
@@ -31,7 +39,7 @@ export function activate(context: ExtensionContext) {
     const clientOptions: LanguageClientOptions = {
         documentSelector: [{ scheme: 'file', language: 'dbuf' }],
         synchronize: {
-            fileEvents: workspace.createFileSystemWatcher('**/*.dbuf')
+            fileEvents: vscode.workspace.createFileSystemWatcher('**/*.dbuf')
         }
     };
 
@@ -42,8 +50,7 @@ export function activate(context: ExtensionContext) {
         clientOptions
     );
 
-    client
-
+    vscode.window.showInformationMessage(`Starting LSP server`)
     client.start();
 }
 

@@ -4,12 +4,12 @@ This is vscode extension for supporting dbuf language.
 
 ## Features
 
-* Text highlight
-* Simple Language Server Protocol communication
+* Text highlight.
+* Simple Language Server Protocol communication.
 
 ## Requirements
 
-* Installed DBuf Language Server as `dbuf-lsp`
+* Installed cargo to build `dbuf-lsp`.
 
 ## How to build
 
