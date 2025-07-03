@@ -63,7 +63,7 @@
         "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
         "lint": "eslint ./src  --ext .ts,.tsx",
         "test": "",
-        "deploy": "vsce publish --yarn"
+        "deploy": "vsce publish"
     },
     "dependencies": {
         "fs-extra": "^11.3.0",
