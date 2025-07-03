@@ -2,8 +2,9 @@ node_modules
 *.vsix
 
 # client build
-client/out
-client/tsconfig.tsbuildinfo
+out
+dist
+tsconfig.tsbuildinfo
 
 # dbuf-lsp install
 .crates.toml

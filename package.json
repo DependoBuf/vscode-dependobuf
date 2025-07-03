@@ -1,15 +1,29 @@
 {
     "name": "dependobuf",
+    "version": "0.1.0",
+    "publisher": "DependoBuf",
+    "engines": {
+        "vscode": "^1.98.0"
+    },
+    "license": "GNU GPL V3",
+    "bugs": {
+        "url": "https://github.com/DependoBuf/vscode-dependobuf/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DependoBuf/vscode-dependobuf.git"
+    },
     "displayName": "DependoBuf",
     "description": "DBuf language support",
-    "version": "0.0.1",
-    "engines": {
-        "vscode": "^1.96.0"
-    },
     "categories": [
-        "Programming Languages"
+        "Programming Languages",
+        "Linters",
+        "Formatters"
     ],
-    "main": "./client/out/extension",
+    "keywords": [
+        "dbuf"
+    ],
+    "main": "./dist/extension",
     "contributes": {
         "commands": [
             {
@@ -40,19 +54,33 @@
         ]
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -b",
-        "watch": "tsc -b -w",
-        "lint": "eslint ./client/src  --ext .ts,.tsx",
-        "postinstall": "cd client && npm install && cd .. "
+        "vscode:prepublish": "npm run package",
+        "package": "npm run check-types && node esbuild.js --production",
+        "compile": "npm run check-types && node esbuild.js",
+        "check-types": "tsc --noEmit",
+        "watch": "npm-run-all -p watch:*",
+        "watch:esbuild": "node esbuild.js --watch",
+        "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+        "lint": "eslint ./src  --ext .ts,.tsx"
+    },
+    "dependencies": {
+        "fs-extra": "^11.3.0",
+        "glob": "^11.0.1",
+        "vscode-languageclient": "^9.0.1"
     },
     "devDependencies": {
+        "@stylistic/eslint-plugin": "^5.1.0",
+        "@types/fs-extra": "^11.0.4",
         "@types/mocha": "^10.0.10",
         "@types/node": "^22.13.14",
+        "@types/vscode": "^1.98.0",
         "@typescript-eslint/eslint-plugin": "^8.28.0",
         "@typescript-eslint/parser": "^8.28.0",
+        "esbuild": "^0.25.5",
         "eslint": "^9.23.0",
         "mocha": "^11.2.0",
-        "typescript": "^5.8.2"
+        "npm-run-all": "^4.1.5",
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.35.1"
     }
 }
