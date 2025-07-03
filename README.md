@@ -9,13 +9,17 @@ This is vscode extension for supporting dbuf language.
 
 ## Requirements
 
+
+### Usage Requirements
 * Installed cargo to build `dbuf-lsp`.
+
+### Build Requirements
+* `npm` with version at least `10.9.2`.
 
 ## How to build
 
 Use `npm install`, then press `F5`.
-Sometimes command `npm run watch` might help.
 
 ## How to install
 
-TBA
+Use `Intall from VSIX` to install extension from package or use [marketplace](TBA).

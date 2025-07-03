@@ -23,14 +23,14 @@ export async function activate(context: vscode.ExtensionContext) {
 
     const server = spawn(utils.getBinaryPath(context));
     server.on('error', (err) => {
-        console.log(`server creation error:\n  ${err}`)
-    })
+        console.log(`server creation error:\n  ${err}`);
+    });
     server.stderr.on("data", (data) => {
-        console.log(`${data}`)
-    })
+        console.log(`${data}`);
+    });
     server.on('close', (code) => {
-        console.log(`server closed with code: ${code}`)
-    })
+        console.log(`server closed with code: ${code}`);
+    });
 
     const serverOptions: ServerOptions = () => {
         return Promise.resolve(server);
@@ -50,7 +50,7 @@ export async function activate(context: vscode.ExtensionContext) {
         clientOptions
     );
 
-    vscode.window.showInformationMessage(`Starting LSP server`)
+    vscode.window.showInformationMessage(`Starting LSP server`);
     client.start();
 }
 
