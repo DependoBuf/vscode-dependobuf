@@ -21,7 +21,7 @@ export async function activate(context: vscode.ExtensionContext) {
         return;
     }
 
-    const server = spawn(utils.getBinaryPath(context));
+    const server = spawn(utils.getBinaryPath(context),  ["lsp"]);
     server.on('error', (err) => {
         console.log(`server creation error:\n  ${err}`);
     });

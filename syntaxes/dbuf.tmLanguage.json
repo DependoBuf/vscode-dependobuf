@@ -25,6 +25,12 @@
         },
         {
             "include": "#arrow"
+        },
+        {
+            "include": "#singleLineComment"
+        },
+        {
+            "include": "#blockComment"
         }
     ],
     "repository": {
@@ -66,6 +72,15 @@
         "arrow": {
             "name": "constant.language.dbuf",
             "match": "=>"
+        },
+        "singleLineComment": {
+            "name": "comment.line.double-slash.dbuf",
+            "match": "//.*"
+        },
+        "blockComment": {
+            "name": "comment.block.dbuf",
+            "begin": "/\\*",
+            "end": "\\*/"
         }
     },
     "scopeName": "source.dbuf"
