@@ -1,6 +1,6 @@
 {
     "name": "dependobuf",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "DependoBuf",
     "engines": {
         "vscode": "^1.98.0"

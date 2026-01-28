@@ -5,7 +5,7 @@ import { execSync } from "child_process";
 
 
 export function getBinaryPath(context: vscode.ExtensionContext): string {
-    const binName = 'dbuf-lsp';
+    const binName = 'dbuf';
     return path.join(context.extensionPath, 'bin', binName);
 }
 
@@ -20,7 +20,6 @@ function isCargoInstalled(): boolean {
 
 export async function installBinary(context: vscode.ExtensionContext): Promise<boolean> {
     const repoUrl = 'https://github.com/DependoBuf/dependobuf.git';
-    const binName = 'dbuf-lsp';
 
     return vscode.window.withProgress({
         location: vscode.ProgressLocation.Notification,
@@ -29,7 +28,7 @@ export async function installBinary(context: vscode.ExtensionContext): Promise<b
     }, async (process) => {
         try {
             process.report({ increment: 0 });
-            execSync(`cargo install --git ${repoUrl} --root . --bin ${binName} `, { cwd: context.extensionPath });
+            execSync(`cargo install --git ${repoUrl} --root . --features lsp`, { cwd: context.extensionPath });
             process.report({ increment: 100 });
             return true;
         } catch (error) {
