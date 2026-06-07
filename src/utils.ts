@@ -5,6 +5,10 @@ import { execSync } from "child_process";
 
 
 export function getBinaryPath(context: vscode.ExtensionContext): string {
+    if (isDbufInstalled()) {
+        return 'dbuf';
+    }
+
     const binName = 'dbuf';
     return path.join(context.extensionPath, 'bin', binName);
 }
@@ -12,6 +16,15 @@ export function getBinaryPath(context: vscode.ExtensionContext): string {
 function isCargoInstalled(): boolean {
     try {
         execSync('cargo --version');
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+function isDbufInstalled(): boolean {
+    try {
+        execSync('dbuf --version');
         return true;
     } catch {
         return false;
@@ -42,6 +55,10 @@ export async function setupLanguageServer(context: vscode.ExtensionContext): Pro
     const binaryPath = getBinaryPath(context);
 
     if (fs.existsSync(binaryPath)) {
+        return true;
+    }
+
+    if (isDbufInstalled()) {
         return true;
     }
 
